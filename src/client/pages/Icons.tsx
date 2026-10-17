@@ -39,7 +39,7 @@ export default function Icons() {
 					</div>
 					<p>
 						Copy the URL that the bookmarklet gives you. Then go
-						back to InvisiLTS and enter in the URL for the Icon URL
+						back to HummingEngine and enter in the URL for the Icon URL
 						in Settings. Enjoy!
 					</p>
 				</div>
@@ -55,7 +55,7 @@ export default function Icons() {
 export function Head() {
 	return (
 		<>
-			<title>InvisiProxy LTS</title>
+			<title>HummingEngine</title>
 			<PageDescription />
 			<HeadContent />
 			<ParticlesScript />
