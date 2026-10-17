@@ -87,7 +87,7 @@ export default function ScramjetError() {
 				</code>
 				<p class="footer-spacing">
 					<i>
-						<>InvisiProxy LTS © 2020-2026 | Made With Love </>
+						<>HummingEngine </>
 					</i>
 					<i class="nf nf-fa-heart"></i>
 				</p>
