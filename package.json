@@ -1,8 +1,8 @@
 {
-	"name": "invisiproxy",
-	"version": "8.1.0",
-	"repository": "https://github.com/QuiteAFancyEmerald/InvisiProxy",
-	"description": "InvisiProxy LTS is a web proxy service that helps you access websites that may be blocked by your network, government or policy all within your browser with no download or setup.",
+	"name": "HummingEngine",
+	"version": "8.1.9",
+	"repository": "https://github.com/hummingbird-9/HummingEngine",
+	"description": "HummingEngine sends hummingbirds out to give u search results through a scramjet. It may seem dangerous to both, as hummingbirds are not particularly known for surviving jets and vice versa, but we assure you it is completely safe.",
 	"scripts": {
 		"fresh-install": "pnpm update && pnpm install --frozen-lockfile",
 		"fresh-start": "pnpm run fresh-install && pnpm start",
