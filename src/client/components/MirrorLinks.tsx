@@ -7,7 +7,7 @@ export default function MirrorLinks() {
 				type="button"
 				class="link-button mirror-links-toggle"
 				popovertarget="mirror-links-menu"
-					title="Get another InvisiProxy link"
+					title="Get another HummingEngine link"
 			>
 				<svg
 					width="20"
@@ -44,7 +44,7 @@ export default function MirrorLinks() {
 					</button>
 				</div>
 				<p class="setting-description">
-					Get another link to keep using InvisiProxy. Links are
+					Get another link to keep using HummingEngine. Links are
 					restocked frequently.
 				</p>
 				<button
@@ -59,7 +59,7 @@ export default function MirrorLinks() {
 				<a
 					id="dispensed-link"
 					href={route('/')}
-					aria-label="Open another InvisiProxy mirror"
+					aria-label="Open another HummingEngine mirror"
 					hidden
 					target="_blank"
 					rel="noopener noreferrer"
