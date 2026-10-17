@@ -50,11 +50,11 @@ export default function Home() {
 									<span class="cmd">{'git clone --recurse-submodules'}<span class="url"> https://github.com</span></span><br />
 									<span class="cmd">{'cd '}HummingEngine </span><br />
 									<span class="comment">For first-time setup on a production branch...</span><br />
-									<span class="cmd">{'pnpm run fresh-start\(\r'\)}</span><br />
+									<span class="cmd">{'pnpm run fresh-start\r'}</span><br />
 									<span class="comment">Or typical uses...</span><br />
-									<span class="cmd">{'pnpm start\(\r'\)}</span><br />
+									<span class="cmd">{'pnpm start\r'}</span><br />
 									<span class="comment">For development...</span><br />
-									<span class="cmd">{'pnpm dev\(\r'\)}</span><br /><br />
+									<span class="cmd">{'pnpm dev\r'}</span><br />
 									<span class="comment">HummingEngine{` v${values.version} // master`}</span><br />
 									<span class="comment">Node.js v26.x</span><br />
 									<span class="comment">Solid JS v1.9.17</span><br />
