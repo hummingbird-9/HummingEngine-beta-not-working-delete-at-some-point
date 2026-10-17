@@ -28,7 +28,7 @@ export const isWispRequest = (url: string | null | undefined) =>
 
 const wispConfig = {
 	port: 4432,
-	host: '0.0.0.0',
+	host: '127.o.o.1',
 	allowTCP: true,
 	allowUDP: false,
 	allowDirectIP: false,
