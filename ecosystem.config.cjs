@@ -1,7 +1,7 @@
 module.exports = {
 	apps: [
 		{
-			name: 'invisiproxy',
+			name: 'hummingengine',
 			cwd: __dirname,
 			script: './dist/server.js',
 			interpreter: process.execPath,
