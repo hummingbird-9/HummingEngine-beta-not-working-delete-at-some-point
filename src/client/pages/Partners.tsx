@@ -33,7 +33,7 @@ export default function Partners() {
 							<h1 class="bigtitle">Partner Services</h1>
 							<p>
 								Explore our partner projects. Our partners
-								feature a similar model to InvisiProxy so be
+								feature a similar model to HummingEngine/InvisiProxy so be
 								sure to join their respective discords for more
 								links.
 							</p>
@@ -75,7 +75,7 @@ export default function Partners() {
 export function Head() {
 	return (
 		<>
-			<title>InvisiProxy LTS | Partners</title>
+			<title>HummingProxy LTS | Partners</title>
 			<PageDescription />
 			<ProxyPreloads />
 			<HeadContent />
