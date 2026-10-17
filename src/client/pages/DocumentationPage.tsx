@@ -79,7 +79,7 @@ export default function DocumentationPage() {
 export function Head() {
 	return (
 		<>
-			<title>InvisiProxy LTS</title>
+			<title>HummingEngine</title>
 			<PageDescription />
 			<HeadContent />
 			<ParticlesScript />
