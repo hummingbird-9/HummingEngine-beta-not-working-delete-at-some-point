@@ -86,7 +86,7 @@ export default function Applications() {
 export function Head() {
 	return (
 		<>
-			<title>InvisiProxy LTS | Applications</title>
+			<title>HummingEngine apps</title>
 			<PageDescription />
 			<ProxyPreloads />
 			<HeadContent />
