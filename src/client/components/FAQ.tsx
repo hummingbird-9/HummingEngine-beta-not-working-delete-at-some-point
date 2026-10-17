@@ -42,7 +42,7 @@ export default function FAQ() {
 					<br></br>
 					<p>
 						Copy the URL that the bookmarklet gives you. Then go
-						back to InvisiProxy and enter in the URL for the Icon
+						back to HummingEngine and enter in the URL for the Icon
 						URL in Settings. Enjoy!
 					</p>
 				</div>
