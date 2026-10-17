@@ -53,7 +53,7 @@ export function Head() {
 	return (
 		<>
 			<base href={route('/')} />
-			<title>InvisiProxy LTS | Error</title>
+			<title>HummingEngine:Error</title>
 			<meta itemprop="http-status" content="404" />
 			<PageDescription />
 			<HeadContent />
