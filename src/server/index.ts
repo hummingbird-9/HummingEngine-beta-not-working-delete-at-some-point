@@ -51,7 +51,7 @@ process.once('exit', () => {
 
 server.listen(serverPort, serverUrl.hostname, () => {
 	process.send?.({ type: 'ready' });
-	console.log(`InvisiProxy is listening on port ${serverPort}.`);
+	console.log(`HummingEngine is listening on port ${serverPort}.`);
 	console.log(
 		'When hosting with a reverse proxy please ensure you are using NGINX only.\nCaddy and Apache have security risks due to wispurr and loopbacks. Please configure them correctly.\nNGINX is recommended and used for production. Ports are whitelisted and security is maintained with NGINX only.'
 	);
