@@ -6,8 +6,8 @@ export default function Footer() {
 			<div class="footerflex">
 				<div class="footerbrand">
 					<h3>
-						<a href={route('/')} title="InvisiProxy Homepage">
-							InvisiProxy
+						<a href={route('/')} title="HummingEngine Homepage">
+							HummingEngine
 						</a>
 					</h3>
 					<p>Global Web Proxy Innovation, Done Right.</p>
@@ -124,7 +124,7 @@ export default function Footer() {
 								target="_blank"
 								rel="noopener noreferrer"
 								href={route('/github')}
-								title="InvisiProxy GitHub Repository"
+								title="HummingEngine GitHub Repository"
 							>
 								GitHub
 							</a>
@@ -134,7 +134,7 @@ export default function Footer() {
 								target="_blank"
 								rel="noopener noreferrer"
 								href={route('/patreon')}
-								title="Follow InvisiProxy on Patreon"
+								title="Follow HummingEngine on Patreon"
 							>
 								Patreon
 							</a>
@@ -172,18 +172,18 @@ export default function Footer() {
 					target="_blank"
 					rel="noopener noreferrer"
 					href={route('/github')}
-					title="Follow InvisiProxy on GitHub"
+					title="Follow HummingEngine on GitHub"
 				>
-					<span class="sr-only">Follow InvisiProxy on GitHub</span>
+					<span class="sr-only">Follow HummingEngine on GitHub</span>
 					<i class="fab fa-github" aria-hidden="true"></i>
 				</a>
 				<a
 					target="_blank"
 					rel="noopener noreferrer"
 					href={route('/patreon')}
-					title="Follow InvisiProxy on Patreon"
+					title="Follow HummingEngine on Patreon"
 				>
-					<span class="sr-only">Follow InvisiProxy on Patreon</span>
+					<span class="sr-only">Follow HummingEngine on Patreon</span>
 					<i class="fab fa-patreon" aria-hidden="true"></i>
 				</a>
 				<a
@@ -196,7 +196,7 @@ export default function Footer() {
 					<i class="fas fa-coffee" aria-hidden="true"></i>
 				</a>
 			</div>
-			<p class="copyright">InvisiProxy LTS 2020-2026</p>
+			<p class="copyright">HummingEngine 2020-2026</p>
 		</>
 	);
 }
