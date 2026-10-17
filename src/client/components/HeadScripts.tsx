@@ -7,7 +7,7 @@ export function PageDescription(props: { content?: string }) {
 				name="description"
 				content={
 					props.content ??
-					'InvisiProxy is a secure web proxy service with support for many sites. Bypass filters and freely enjoy a safer private browsing experience or unblock websites on devices such as Chromebooks and at places like school or work without downloading anything.'
+					'HummingEngine is a hummingbird powered search engine'
 				}
 			/>
 		</SEO>
