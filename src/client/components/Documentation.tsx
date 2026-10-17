@@ -3,7 +3,7 @@ import { route, SEO } from '../document-helpers.tsx';
 export default function Documentation() {
 	return (
 		<>
-			<h1>InvisiProxy LTS</h1>
+			<h1>HummingEngine</h1>
 			<SEO>
 				<p>
 					<img
