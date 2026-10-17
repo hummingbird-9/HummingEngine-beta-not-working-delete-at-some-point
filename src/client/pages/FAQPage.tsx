@@ -43,7 +43,7 @@ export default function FAQPage() {
 export function Head() {
 	return (
 		<>
-			<title>InvisiProxy LTS | FAQ</title>
+			<title>HummingEngine | FAQ</title>
 			<PageDescription />
 			<HeadContent />
 			<ParticlesScript />
