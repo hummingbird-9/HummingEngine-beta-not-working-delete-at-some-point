@@ -124,7 +124,7 @@ export default function Scramjet() {
 export function Head() {
 	return (
 		<>
-			<title>InvisiProxy LTS | Scramjet Proxy</title>
+			<title>HummingEngine Scramjet</title>
 			<PageDescription content="The new highly innovative proxy of Mercury Workshop using technologies such as service workers and sophisticated rewriting techniques with CAPTCHA support. Scramjet focuses on speed with YouTube, now.gg, Spotify, CoolMathGames and various .io sites!" />
 			<ProxyPreloads />
 			<HeadContent />
