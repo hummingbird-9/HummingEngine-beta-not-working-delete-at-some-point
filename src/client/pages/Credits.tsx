@@ -25,15 +25,11 @@ export default function Credits() {
 					<div class="box-hero">
 						<div class="box-noflex">
 							<h1 class="bigtitle">Credits</h1>
-							<h2>What is InvisiProxy?</h2>
+							<h2>What is HummingEngine?</h2>
 							<p>
-								InvisiProxy LTS is an official web proxy service
-								can bypass web filters regardless of whether it
-								is an extension or network-based.
+								HummingEngine sends hummingbirds out to search the web.
 								<br />
-								This project allows you to access content
-								otherwise blocked by governments, schools, or
-								workplaces.
+								The hummingbirds are launched out of a scramjet to provide them with additional takeoff speed.
 							</p>
 							<div>
 								{credits.map((section) => (
@@ -121,7 +117,7 @@ export default function Credits() {
 export function Head() {
 	return (
 		<>
-			<title>InvisiProxy LTS | Credits</title>
+			<title>HummingEngine LTS | Credits</title>
 			<PageDescription />
 			<HeadContent />
 			<ParticlesScript />
