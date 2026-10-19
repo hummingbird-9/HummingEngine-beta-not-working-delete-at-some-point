@@ -41,11 +41,11 @@ const wispConfig = {
 	tcpNoDelay: true,
 	blacklist: {
 		hostnames: [],
-		ports:, // FIXED: Restored completely
+		ports: [25, 465, 587],
 	},
 	whitelist: {
 		hostnames: [],
-		ports:, // FIXED: Restored completely
+		ports: [80, 443, 9050, 7000, 7001, 7002],
 	},
 	websocketPermessageDeflate: false,
 	frameObfuscation: {
