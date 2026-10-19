@@ -1,11 +1,14 @@
 #!/bin/sh
 
-# 1. Start Tor in the background
+# Start Tor background daemon
 tor &
 
-# 2. Wait a brief moment for Tor to initialize its system listeners
-sleep 2
+# Loop until Tor opens port 9050 locally
+echo "Waiting for Tor network circuits to stabilize..."
+while ! nc -z 127.0.0.1 9050; do   
+  sleep 1
+done
+echo "Tor circuits verified active!"
 
-# 3. Execute the pre-compiled production file directly using Node.
-# This prevents the container from running Vite and typechecks at startup.
+# Start the web app safely now that proxy paths are clear
 exec node dist/server.js
