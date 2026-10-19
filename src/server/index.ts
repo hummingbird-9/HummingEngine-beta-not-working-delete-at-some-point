@@ -23,18 +23,30 @@ const wisps = new Map<string, wispurr>([
 	),
 ]);
 
-// NON-BLOCKING ASYNC BOOT: Starts proxy networks in the background
-// This allows the web server to go Live immediately while Tor stabilizes
+// AUTOMATIC BACKGROUND RETRY TUNNEL MANAGER:
+// Continuously attempts to safely mount proxy threads without crashing Node
 (async () => {
-	try {
-		console.log('[Wispurr]: Initializing background proxy tunnel layers...');
-		// Initialize all workers asynchronously
-		await Promise.all([...wisps.values()].map((wisp) => wisp.start(1)));
-		console.log('[Wispurr]: Network engine successfully primed and running.');
-	} catch (err) {
-		console.warn(
-			'[Wispurr Notice]: Tor circuits are still downloading. Proxies will automatically activate as circuits stabilize.'
-		);
+	let enginePrimed = false;
+	let attempts = 0;
+	
+	console.log('[Wispurr]: Background networking daemon initialization begun.');
+	
+	while (!enginePrimed && attempts < 30) {
+		attempts++;
+		try {
+			// Attempting worker instantiation loop across background proxies
+			await Promise.all([...wisps.values()].map((wisp) => wisp.start(1)));
+			enginePrimed = true;
+			console.log('[Wispurr]: Network engine successfully primed and handling circuit pathways!');
+		} catch (err) {
+			console.log(`[Wispurr Loop]: Waiting for stable Tor consensus circuits... (Attempt ${attempts}/30)`);
+			// Delay for 4 seconds before re-probing the network loopbacks
+			await new Promise((resolve) => setTimeout(resolve, 4000));
+		}
+	}
+	
+	if (!enginePrimed) {
+		console.error('[Wispurr Error]: Background tunnel manager timed out. Manual redeploy recommended.');
 	}
 })();
 
@@ -42,10 +54,16 @@ const server = createServer(createSiteHandler()).on(
 	'upgrade',
 	(req, socket, head) => {
 		const region = wispRegion(req.url);
-		if (socket instanceof Socket && region !== null) {
+		const targetWisp = region !== null ? wisps.get(region) : null;
+		
+		// Safety check: ensure our proxy thread has successfully initialized before routing frames
+		if (socket instanceof Socket && region !== null && targetWisp && targetWisp.isRunning) {
 			req.url = wispPath();
-			wisps.get(region)?.route(req, socket, head);
-		} else socket.destroy();
+			targetWisp.route(req, socket, head);
+		} else {
+			console.warn('[Proxy Warning]: Data frames dropped - background network circuit stabilizing.');
+			socket.destroy();
+		}
 	}
 );
 
@@ -64,7 +82,7 @@ process.once('exit', () => {
 	for (const wisp of wisps.values()) if (wisp.isRunning) wisp.kill();
 });
 
-// Clean binding signature to port variable to support Render's reverse proxy mesh
+// Clean server listener binding directly to the port
 server.listen(serverPort, () => {
 	process.send?.({ type: 'ready' });
 	console.log(`HummingEngine is successfully listening on port ${serverPort}.`);
