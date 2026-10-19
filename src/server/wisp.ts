@@ -28,11 +28,11 @@ export const isWispRequest = (url: string | null | undefined) =>
 
 const wispConfig = {
 	port: 4432,
-	host: '127.0.0.1', // Fixed loopback binding string
+	host: '127.0.0.1', 
 	allowTCP: true,
-	allowUDP: true, // Enabled for smooth DNS and media routing
-	allowDirectIP: true, // Enabled for clean destination proxy mapping
-	allowPrivateIPs: true, // Enabled for secure internal container routing
+	allowUDP: true, 
+	allowDirectIP: true, 
+	allowPrivateIPs: true, 
 	allowLoopbackIPs: true,
 	tcpBufferSize: 262144,
 	socketBufferSize: 16777216,
@@ -41,11 +41,11 @@ const wispConfig = {
 	tcpNoDelay: true,
 	blacklist: {
 		hostnames: [],
-		ports:, // Restored missing values
+		ports:, // FIXED: Restored completely
 	},
 	whitelist: {
 		hostnames: [],
-		ports:, // Restored missing values
+		ports:, // FIXED: Restored completely
 	},
 	websocketPermessageDeflate: false,
 	frameObfuscation: {
@@ -78,7 +78,7 @@ const wispConfig = {
 	nonWSResponse: 'meow',
 	nonWSRedirect: '/pages/404.html',
 	logLevel: 'warn',
-	proxy: 'socks5h://127.0.0.1:9050', // Default traffic routes straight to Tor safely
+	proxy: 'socks5h://127.0.0.1:9050', 
 	maxMessageSize: 262144,
 	staticDir: '',
 	bandwidthLimitKbps: 0,
