@@ -23,7 +23,7 @@ const wisps = new Map<string, wispurr>([
 	),
 ]);
 
-// BACKGROUND RETRY MANAGER: Continously tries to bind proxy threads safely in the background
+// BACKGROUND RETRY MANAGER: Continuously tries to bind proxy threads safely in the background
 (async () => {
 	let enginePrimed = false;
 	let attempts = 0;
