@@ -49,7 +49,7 @@ process.once('exit', () => {
 	for (const wisp of wisps.values()) if (wisp.isRunning) wisp.kill();
 });
 
-server.listen(serverPort, serverUrl.hostname, () => {
+server.listen(serverPort, () => {
 	process.send?.({ type: 'ready' });
 	console.log(`HummingEngine is listening on port ${serverPort}.`);
 	console.log(
