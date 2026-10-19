@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.title="HummingEngine" \
       org.opencontainers.image.authors="hummingbird-9" \
       org.opencontainers.image.source="https://github.com"
 
-# Install Tor and core compilation dependencies using the glibc Debian image
+# Install Tor alongside native glibc cURL/SSL routing libraries
 RUN apt-get update && apt-get install -y \
     tor \
     bash \
@@ -17,6 +17,10 @@ RUN apt-get update && apt-get install -y \
     g++ \
     gcc \
     libc6-dev \
+    curl \
+    libcurl4 \
+    libcurl4-openssl-dev \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g corepack
