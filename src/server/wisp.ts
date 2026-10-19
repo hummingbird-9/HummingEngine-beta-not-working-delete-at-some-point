@@ -1,34 +1,124 @@
-import { config } from '../config.ts';
+import type { wispurrOptions } from 'wispurr';
+import { serverUrl } from '../config.ts';
+import { getAltPrefix } from '../obfuscation/paths.ts';
 
-// Explicitly route all background data traffic directly through your active Tor circuit layer
-export const wispOptions = {
-	path: '/wisp/',
+export const wispPath = () => getAltPrefix('wisp', serverUrl.pathname);
+
+export const wispProxies = {
+	tor: 'socks5h://127.0.0.1:9050',
+	eu: 'socks5h://127.0.0.1:7000',
+	jp: 'socks5h://127.0.0.1:7001',
+	patreon: 'socks5h://127.0.0.1:7002',
+} as const;
+export type WispRegion = keyof typeof wispProxies;
+
+const isRegion = (name: string): name is WispRegion =>
+	Object.hasOwn(wispProxies, name);
+
+export function wispRegion(url: string | null | undefined): string | null {
+	const path = (url ?? '').split(/[?#]/, 1)[0];
+	const base = wispPath();
+	if (path === base) return '';
+	if (!path.startsWith(base)) return null;
+	const region = path.slice(base.length).replace(/\/$/, '');
+	return isRegion(region) ? region : null;
+}
+export const isWispRequest = (url: string | null | undefined) =>
+	wispRegion(url) !== null;
+
+const wispConfig = {
+	port: 4432,
+	host: '127.0.0.1', // FIXED: Changed 'o' to '0' to prevent socket binding crashes
 	allowTCP: true,
-	allowUDP: true,
-	allowLoopback: true,
-	allowPrivate: true,
-	// FORCED LOCAL TOR BINDING: Overrides broken default config structures
-	proxy: {
-		url: 'socks5://127.0.0.1:9050'
-	}
-};
+	allowUDP: true, // Enabled for smooth DNS and media routing
+	allowDirectIP: true, // Enabled for clean destination proxy mapping
+	allowPrivateIPs: true, // Enabled for secure internal container routing
+	allowLoopbackIPs: true,
+	tcpBufferSize: 262144,
+	socketBufferSize: 16777216,
+	pendingQueueSize: 33554432,
+	bufferRemainingLength: 32768,
+	tcpNoDelay: true,
+	blacklist: {
+		hostnames: [],
+		ports:,
+	},
+	whitelist: {
+		hostnames: [],
+		ports:,
+	},
+	websocketPermessageDeflate: false,
+	frameObfuscation: {
+		enabled: false,
+		version: 2,
+		key: '',
+		tag: '',
+		headerLength: 0,
+		nonceLength: 0,
+		metadataOffset: 0,
+		paddingMinimum: 0,
+		paddingMaximum: 0,
+		paddingPlacement: 'split',
+		keyStride: 0,
+		nonceStride: 0,
+	},
+	dnsServers: [],
+	dnsMethod: 'resolve',
+	dnsResultOrder: 'ipv4first',
+	enableTwisp: false,
+	enableV2: true,
+	handshakeTimeoutSeconds: 5,
+	motd: '',
+	passwordAuth: false,
+	passwordAuthRequired: false,
+	passwordUsers: {},
+	parseRealIP: true,
+	trustedProxies: ['127.0.0.1', '::1'],
+	trustedHeaders: ['X-Forwarded-For'],
+	nonWSResponse: 'meow',
+	nonWSRedirect: '/pages/404.html',
+	logLevel: 'warn',
+	proxy: 'socks5h://127.0.0.1:9050', // Default traffic routes straight to Tor safely
+	maxMessageSize: 262144,
+	staticDir: '',
+	bandwidthLimitKbps: 0,
+	connectionsLimitPerIP: 200,
+	connectionWindowSeconds: 10,
+	floodProtection: {
+		enabled: true,
+		maxConnectsPerSourceIPPerSecond: 500,
+		maxConnectsPerDestPerSecond: 250,
+		maxConnectsPerDestPerMinute: 6000,
+		maxInFlightSyns: 4096,
+		maxConcurrentStreamsPerConnection: 512,
+		maxConcurrentConnections: 16384,
+		synFloodSignature: {
+			enabled: false,
+			windowMs: 2000,
+			minSamples: 128,
+			failedHandshakeRatio: 0.75,
+		},
+		wsCloseAfterViolations: 64,
+		logBlockedDials: false,
+	},
+	reputation: {
+		enabled: false,
+		storePath: './data/wispurr-reputation.json',
+		saveIntervalSeconds: 30,
+		scoreDecayPerHour: 1,
+		evictAfterDays: 7,
+		thresholds: {
+			warn: 21,
+			throttle: 51,
+			strict: 81,
+		},
+		weights: {},
+		destinationWeights: {},
+	},
+} satisfies wispurrOptions & Record<string, unknown>;
 
-export const wispPath = () => wispOptions.path;
+const { frameObfuscation, nonWSRedirect, ...wispOptions } = wispConfig;
+if (frameObfuscation.enabled)
+	throw new Error('This Wispurr version does not support frame obfuscation.');
 
-export const wispProxies: Record<string, string> = {};
-
-export type WispRegion = '';
-
-export const wispRegion = (url?: string): string | null => {
-	if (!url) return null;
-	try {
-		const parsed = new URL(url, 'http://localhost');
-		if (parsed.pathname === wispOptions.path) {
-			return '';
-		}
-	} catch {
-		// Fallback for custom or relative routing patterns
-		if (url.startsWith(wispOptions.path)) return '';
-	}
-	return null;
-};
+export { nonWSRedirect, wispOptions };
