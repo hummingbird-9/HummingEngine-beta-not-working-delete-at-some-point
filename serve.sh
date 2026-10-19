@@ -1,5 +1,11 @@
 #!/bin/sh
-# Start Tor in the background; note that this may take awhile even after the app starts
+
+# 1. Start Tor in the background
 tor &
 
-exec pnpm start
+# 2. Wait a brief moment for Tor to initialize its system listeners
+sleep 2
+
+# 3. Execute the pre-compiled production file directly using Node.
+# This prevents the container from running Vite and typechecks at startup.
+exec node dist/server.js
