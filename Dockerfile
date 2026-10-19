@@ -12,7 +12,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY . .
 RUN pnpm run fresh-install
 RUN pnpm run build
-EXPOSE 8080 9050 9051
+EXPOSE 10000 9050 9051
 COPY serve.sh /serve.sh
 RUN sed -i 's/\r$//' /serve.sh && chmod +x /serve.sh
 CMD ["/serve.sh"]
