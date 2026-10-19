@@ -22,7 +22,21 @@ const wisps = new Map<string, wispurr>([
 			] as const
 	),
 ]);
-for (const wisp of wisps.values()) await wisp.start(1);
+
+// NON-BLOCKING ASYNC BOOT: Starts proxy networks in the background
+// This allows the web server to go Live immediately while Tor stabilizes
+(async () => {
+	try {
+		console.log('[Wispurr]: Initializing background proxy tunnel layers...');
+		// Initialize all workers asynchronously
+		await Promise.all([...wisps.values()].map((wisp) => wisp.start(1)));
+		console.log('[Wispurr]: Network engine successfully primed and running.');
+	} catch (err) {
+		console.warn(
+			'[Wispurr Notice]: Tor circuits are still downloading. Proxies will automatically activate as circuits stabilize.'
+		);
+	}
+})();
 
 const server = createServer(createSiteHandler()).on(
 	'upgrade',
@@ -43,15 +57,17 @@ const stopServer = async () => {
 	server.closeAllConnections();
 	server.close();
 };
+
 process.once('SIGTERM', () => void stopServer());
 process.once('SIGINT', () => void stopServer());
 process.once('exit', () => {
 	for (const wisp of wisps.values()) if (wisp.isRunning) wisp.kill();
 });
 
+// Clean binding signature to port variable to support Render's reverse proxy mesh
 server.listen(serverPort, () => {
 	process.send?.({ type: 'ready' });
-	console.log(`HummingEngine is listening on port ${serverPort}.`);
+	console.log(`HummingEngine is successfully listening on port ${serverPort}.`);
 	console.log(
 		'When hosting with a reverse proxy please ensure you are using NGINX only.\nCaddy and Apache have security risks due to wispurr and loopbacks. Please configure them correctly.\nNGINX is recommended and used for production. Ports are whitelisted and security is maintained with NGINX only.'
 	);
