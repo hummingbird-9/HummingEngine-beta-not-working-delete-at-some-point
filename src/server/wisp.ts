@@ -4,12 +4,12 @@ import { getAltPrefix } from '../obfuscation/paths.ts';
 
 export const wispPath = () => getAltPrefix('wisp', serverUrl.pathname);
 
-// FIXED: Changed socks5h:// to socks5:// for native binary dialer parsing
+// FIXED: Native protocol set to socks5h:// to enforce remote DNS routing through Tor
 export const wispProxies = {
-	tor: 'socks5://127.0.0.1:9050',
-	eu: 'socks5://127.0.0.1:7000',
-	jp: 'socks5://127.0.0.1:7001',
-	patreon: 'socks5://127.0.0.1:7002',
+	tor: 'socks5h://127.0.0.1:9050',
+	eu: 'socks5h://127.0.0.1:7000',
+	jp: 'socks5h://127.0.0.1:7001',
+	patreon: 'socks5h://127.0.0.1:7002',
 } as const;
 export type WispRegion = keyof typeof wispProxies;
 
@@ -29,7 +29,7 @@ export const isWispRequest = (url: string | null | undefined) =>
 
 const wispConfig = {
 	port: 4432,
-	host: '127.0.0.1', 
+	host: '0.0.0.0', // FIXED: Bind to all interfaces for Render network mapping
 	allowTCP: true,
 	allowUDP: true, 
 	allowDirectIP: true, 
@@ -68,7 +68,7 @@ const wispConfig = {
 	dnsResultOrder: 'ipv4first',
 	enableTwisp: false,
 	enableV2: true,
-	handshakeTimeoutSeconds: 5,
+	handshakeTimeoutSeconds: 15, // FIXED: Expanded to prevent handshake dropout while circuits build
 	motd: '',
 	passwordAuth: false,
 	passwordAuthRequired: false,
@@ -79,7 +79,7 @@ const wispConfig = {
 	nonWSResponse: 'meow',
 	nonWSRedirect: '/pages/404.html',
 	logLevel: 'warn',
-	proxy: 'socks5://127.0.0.1:9050', // FIXED: Changed socks5h:// to socks5://
+	proxy: 'socks5h://127.0.0.1:9050', // FIXED: Native onion hostname lookup patch
 	maxMessageSize: 262144,
 	staticDir: '',
 	bandwidthLimitKbps: 0,
