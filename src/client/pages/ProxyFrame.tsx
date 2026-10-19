@@ -23,7 +23,7 @@ export default function ProxyFrame() {
 					href={route('/browsing')}
 					aria-label="InvisiProxy Logo"
 				>
-					<span class="sr-only">InvisiProxy browsing</span>
+					<span class="sr-only">HummingEngine browsing</span>
 				</a>
 				<button type="button" id="omnibar-back" title="Back">
 					<i class="fas fa-arrow-left"></i>
