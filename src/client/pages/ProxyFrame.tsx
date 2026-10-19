@@ -21,7 +21,7 @@ export default function ProxyFrame() {
 				<a
 					class="logo"
 					href={route('/browsing')}
-					aria-label="InvisiProxy Logo"
+					aria-label="HummingEngiine Logo"
 				>
 					<span class="sr-only">HummingEngine browsing</span>
 				</a>
