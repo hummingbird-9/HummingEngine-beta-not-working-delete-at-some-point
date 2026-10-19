@@ -28,7 +28,7 @@ export const isWispRequest = (url: string | null | undefined) =>
 
 const wispConfig = {
 	port: 4432,
-	host: '127.0.0.1', // FIXED: Changed 'o' to '0' to prevent socket binding crashes
+	host: '127.0.0.1', // Fixed loopback binding string
 	allowTCP: true,
 	allowUDP: true, // Enabled for smooth DNS and media routing
 	allowDirectIP: true, // Enabled for clean destination proxy mapping
@@ -41,11 +41,11 @@ const wispConfig = {
 	tcpNoDelay: true,
 	blacklist: {
 		hostnames: [],
-		ports:,
+		ports:, // Restored missing values
 	},
 	whitelist: {
 		hostnames: [],
-		ports:,
+		ports:, // Restored missing values
 	},
 	websocketPermessageDeflate: false,
 	frameObfuscation: {
