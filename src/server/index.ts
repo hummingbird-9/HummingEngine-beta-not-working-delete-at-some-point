@@ -23,8 +23,7 @@ const wisps = new Map<string, wispurr>([
 	),
 ]);
 
-// AUTOMATIC BACKGROUND RETRY TUNNEL MANAGER:
-// Continuously attempts to safely mount proxy threads without crashing Node
+// BACKGROUND RETRY MANAGER: Continously tries to bind proxy threads safely in the background
 (async () => {
 	let enginePrimed = false;
 	let attempts = 0;
@@ -34,13 +33,11 @@ const wisps = new Map<string, wispurr>([
 	while (!enginePrimed && attempts < 30) {
 		attempts++;
 		try {
-			// Attempting worker instantiation loop across background proxies
 			await Promise.all([...wisps.values()].map((wisp) => wisp.start(1)));
 			enginePrimed = true;
 			console.log('[Wispurr]: Network engine successfully primed and handling circuit pathways!');
 		} catch (err) {
 			console.log(`[Wispurr Loop]: Waiting for stable Tor consensus circuits... (Attempt ${attempts}/30)`);
-			// Delay for 4 seconds before re-probing the network loopbacks
 			await new Promise((resolve) => setTimeout(resolve, 4000));
 		}
 	}
@@ -56,7 +53,6 @@ const server = createServer(createSiteHandler()).on(
 		const region = wispRegion(req.url);
 		const targetWisp = region !== null ? wisps.get(region) : null;
 		
-		// Safety check: ensure our proxy thread has successfully initialized before routing frames
 		if (socket instanceof Socket && region !== null && targetWisp && targetWisp.isRunning) {
 			req.url = wispPath();
 			targetWisp.route(req, socket, head);
@@ -82,8 +78,8 @@ process.once('exit', () => {
 	for (const wisp of wisps.values()) if (wisp.isRunning) wisp.kill();
 });
 
-// Clean server listener binding directly to the port
-server.listen(serverPort, () => {
+// CRITICAL FIX: Explicitly passing '0.0.0.0' forces Debian Docker instances to bind to public boundaries
+server.listen(serverPort, '0.0.0.0', () => {
 	process.send?.({ type: 'ready' });
 	console.log(`HummingEngine is successfully listening on port ${serverPort}.`);
 	console.log(
