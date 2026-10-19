@@ -4,11 +4,12 @@ import { getAltPrefix } from '../obfuscation/paths.ts';
 
 export const wispPath = () => getAltPrefix('wisp', serverUrl.pathname);
 
+// FIXED: Changed socks5h:// to socks5:// for native binary dialer parsing
 export const wispProxies = {
-	tor: 'socks5h://127.0.0.1:9050',
-	eu: 'socks5h://127.0.0.1:7000',
-	jp: 'socks5h://127.0.0.1:7001',
-	patreon: 'socks5h://127.0.0.1:7002',
+	tor: 'socks5://127.0.0.1:9050',
+	eu: 'socks5://127.0.0.1:7000',
+	jp: 'socks5://127.0.0.1:7001',
+	patreon: 'socks5://127.0.0.1:7002',
 } as const;
 export type WispRegion = keyof typeof wispProxies;
 
@@ -78,7 +79,7 @@ const wispConfig = {
 	nonWSResponse: 'meow',
 	nonWSRedirect: '/pages/404.html',
 	logLevel: 'warn',
-	proxy: 'socks5h://127.0.0.1:9050', 
+	proxy: 'socks5://127.0.0.1:9050', // FIXED: Changed socks5h:// to socks5://
 	maxMessageSize: 262144,
 	staticDir: '',
 	bandwidthLimitKbps: 0,
