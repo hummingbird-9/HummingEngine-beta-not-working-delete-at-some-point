@@ -1,4 +1,4 @@
-FROM node:20-slim
+FROM node:26-slim
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.title="HummingEngine" \
       org.opencontainers.image.authors="hummingbird-9" \
       org.opencontainers.image.source="https://github.com"
 
-# Install Tor and fundamental compilation libraries natively on Debian glibc
+# Install Tor and core compilation dependencies using the glibc Debian image
 RUN apt-get update && apt-get install -y \
     tor \
     bash \
