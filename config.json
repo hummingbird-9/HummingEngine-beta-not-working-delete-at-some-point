@@ -7,6 +7,12 @@
 	"disguiseFiles": true,
 	"usingSEO": false,
 	"verbose": true,
-	"port": 8080,
-	"showSplash": true
+	"port": 10000,
+	"showSplash": true,
+	"wispOptions": {
+		"allowTCP": true,
+		"allowUDP": true,
+		"allowLoopback": true,
+		"allowPrivate": true
+	}
 }
